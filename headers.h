@@ -8,8 +8,15 @@
 typedef struct env_s
 {
 	char *key;
-	char *val;
+	char *value;
 	struct env_s *next;
 } env_t;
+
+env_t *add_node_end(env_t **head, const char *key, const char *value);
+char *_strdup(const char *str);
+void _putchar(char c);
+int _strlen(const char *str);
+size_t print_list(const env_t *h);
+env_t *build_env_list(env_t **head, char **environ);
 
 #endif
