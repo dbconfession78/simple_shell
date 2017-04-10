@@ -17,4 +17,6 @@ int main(int argc, char **argv, char **envp)
 	_setenv("lalala", "JARED", &head);
 	_setenv("PATH", "no/more/path", &head);
 	print_env_list(head);
+	_unsetenv("lalala", &head);
+	print_env_list(head);
 }
