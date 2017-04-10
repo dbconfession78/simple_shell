@@ -98,9 +98,45 @@ env_t *_setenv(const char *name, const char *value, env_t **head)
 	add_env_node(head, env_str);
 
 //	tem("cat: %s\n", str);
+}
+int _unsetenv(char *name, env_t **head)
+{
+	env_t *temp = NULL;
+	env_t *node = *head;
+	size_t idx = 0;
 
-	
+	if (!*head || !head)
+		return (-1);
 
+	while (node != NULL)
+	{
+		temp = node;
+		if (cmpname(name, temp->str) == 0)
+		{
+			if (idx == 0)
+				*head = node->next;
+			else
+				temp->next = node->next;
+			free(node);
+			return (1);
+		}
+		node = node->next;
+		idx++;
+	}
+	return (1);
+}
+int cmpname(char *name, const char *key)
+{
+	size_t i;
 
-
+	if (key)
+	{
+		for (i = 0; key[i] != '='; i++)
+		{
+			if (name[i] != key[i])
+				return (-1);
+		}
+		return (0);
+	}
+	return (-1);
 }
