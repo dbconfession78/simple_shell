@@ -117,6 +117,7 @@ int _unsetenv(char *name, env_t **head)
 				*head = node->next;
 			else
 				temp->next = node->next;
+			free(node->str);
 			free(node);
 			return (1);
 		}
@@ -131,7 +132,7 @@ int cmpname(char *name, const char *key)
 
 	if (key)
 	{
-		for (i = 0; key[i] != '='; i++)
+		for (i = 0; name != '\0' && key[i] != '='; i++)
 		{
 			if (name[i] != key[i])
 				return (-1);
