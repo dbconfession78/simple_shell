@@ -13,5 +13,6 @@ char **tokenize_string(char *line)
 		token = strtok(NULL, delim);
 		++i;
 	}
+	args[i] = NULL;
 	return(args);
 }
