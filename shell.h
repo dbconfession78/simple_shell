@@ -1,11 +1,12 @@
 #ifndef SHELL_H
 #define SHELL_H
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <sys/wait.h>
 #include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/stat.h>
 #define PROMPT "$ "
 typedef struct env_s
 {
@@ -19,4 +20,7 @@ void init_env_list(char **environ, env_t **head);
 int _unsetenv(char *name, env_t **head);
 char **tokenize_string(char *line);
 int cmpname(char *, const char *);
+void signal_handler(int sig);
+void _putchar(char c);
+void free_list(env_t *head);
 #endif

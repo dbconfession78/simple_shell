@@ -1,22 +1,12 @@
 #include "shell.h"
 
-int is_builtin()
-{
-
-}
-
-int is_in_path()
-{
-
-
-}
-
 void handle_command(char **tokens)
 {
 	char *dir = "/bin/";
 	int size = sizeof(char) * (strlen(dir) + strlen(tokens[0]) + 1);
 	char *path = malloc(size);
 	pid_t pid;
+	int status;
 
 	strcpy(path, dir);
 	strncat(path, tokens[0], strlen(tokens[0]));
@@ -25,7 +15,8 @@ void handle_command(char **tokens)
 	pid = fork();
 	if (pid == 0)
 	{
-		printf("exec success: %d\n", execve(path, tokens, NULL));
+		execve(path, tokens, NULL);
+		perror("Error");
 	}
 	else if (pid < 0)
 	{
@@ -33,6 +24,6 @@ void handle_command(char **tokens)
 	}
 	else
 	{
-		wait();
+		wait(&status);
 	}
 }

@@ -70,3 +70,24 @@ int _strcmp(char *s1, char *s2)
 		;
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
+
+/**
+ * _puts - prints a string
+ *
+ *@str: string to print
+ *
+ * Return: void
+ */
+
+void _puts(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != 0)
+	{
+		_putchar(str[i]);
+		i++;
+	}
+	_putchar('\n');
+}
