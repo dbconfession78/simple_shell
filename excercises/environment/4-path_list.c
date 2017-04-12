@@ -67,12 +67,35 @@ size_t print_list(const list_t *h)
 	}
 	return (len);
 }
-
-int  main(int argc, char *argv[])
+char *exebuiltin(char *file, const list_t *h)
+{
+	unsigned int i;
+	struct stat st;
+	char *path;
+	while (h)
+	{
+		path = malloc(sizeof(char) * (strlen(file) + strlen(h->str)));
+/*		strcat("/", file);
+*/		path = strcat(h->str, file);
+		if (stat(path, &st) == 0)
+		{
+			printf("found %s\n", path);
+			return (path);
+		}
+		else
+			printf("not found %s\n", path);
+		h = h->next;
+	}
+	free(path);
+	return("fail");
+}
+int  main(int ac, char **av)
 {
 	list_t *head = NULL;
 	char *path = _getenv("PATH");
 	char *token;
+	char *file;
+	unsigned int i = 1;
 	if (!path)
 		return (-1);
 
@@ -83,6 +106,12 @@ int  main(int argc, char *argv[])
 		add_node_end(&head, token);
 		token = strtok(NULL, ":");
 	}
-	print_list(head);
-    return (0);
+/*	while (ac != 0)
+	(
+*		exebuiltin(av[i], head);
+*		ac--;
+	}
+*/
+	exebuiltin(av[1], head);
+	return (0);
 }
