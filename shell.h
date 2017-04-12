@@ -17,5 +17,6 @@ size_t print_env_list(const env_t *head);
 env_t *add_env_node(env_t **head, const char *str);
 void init_env_list(char **environ, env_t **head);
 int _unsetenv(char *name, env_t **head);
+char **tokenize_string(char *line);
 int cmpname(char *, const char *);
 #endif
