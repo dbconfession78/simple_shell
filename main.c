@@ -16,7 +16,9 @@ int main(int argc, char **argv, char **envp)
 	env_t *head = NULL;
 	size_t len = 0;
 	ssize_t read;
+	info_t info;
 
+	info = init_main(argc, argv, envp);
 	init_env_list(envp, &head);
 	signal(SIGINT, signal_handler);				
 	set_prompt();
@@ -44,4 +46,9 @@ int main(int argc, char **argv, char **envp)
 //	print_env_list(head);
 
 	return (0);
+}
+
+info_t init_main(int argc, char *argv[], char *envp[])
+{
+	int pid = getpid();
 }
