@@ -9,23 +9,43 @@
 int main(int argc, char *argv[])
 {
 	char *path = NULL;
-	path_t *head = NULL;
+	path_t *path_head = NULL;
 	char *line = NULL;
 	size_t line_size = 0;
 	char **tokenized_stdin = NULL;
 
 	path = _getenv("PATH");
-	head = list_tokenized_path(path);
-	free_path_list(head);
+	path_head = list_tokenized_path(path);
 	signal(SIGINT, signal_handler);
 	if (argc == 1)
 		set_prompt();
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
+		if (_strcmp(line, "\n") == 0)
+		{
+			set_prompt();
+			continue;
+		}
 		tokenized_stdin = tokenize_stdin(line);
+		if(check_built_ins(tokenized_stdin[0], tokenized_stdin) == 1)
+		{
+			printf("*****TODO: CHECK  BUILT-INS*****\n");
+			getchar();
+			if (check_path(tokenized_stdin[0], tokenized_stdin, path_head) == 1)
+			{
+				perror("Error");
+				
+			}
+		}
+		else
+		{
+			printf("is a built-in\n");
+			/* check_built_ins succeeded */
+		}
 		free(tokenized_stdin);
 		set_prompt();
 	}
+	free_path_list(path_head);
 	if (line)
 		free(line);
 	return (EXIT_SUCCESS);

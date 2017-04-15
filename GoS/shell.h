@@ -44,12 +44,18 @@ int _strcmp(char *s1, char *s2);
 char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
+void _puts(char *str);
+void _putchar(char c);
 path_t *list_tokenized_path(char *path);
 path_t *add_path_node_end(path_t **head, char *path_dir);
+env_t *add_env_node(env_t **head, const char *env_var);
+env_t *_setenv(char *name, char *value, env_t **head);
 void free_path_list(path_t *head);
 void signal_handler(int sig);
 void set_prompt(void);
 char **tokenize_stdin(char *line);
-int check_builtins(char *cmd, char **args);
+int check_built_ins(char *cmd, char **args);
+int check_path(char *cmd, char **args, path_t *path_head);
+int change_directory(char **args);
 
 #endif

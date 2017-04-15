@@ -36,11 +36,11 @@ char **tokenize_stdin(char *line)
 	int word_count = 0;
 	char *token;
 	char *delim = "\n\r\t\a ";
-	char *line_copy = line;
+	char *line_copy;
 
 	if (!line)
 		return (NULL);
-
+	line_copy = _strdup(line);
 	token = strtok(line_copy, delim);
 	while (token)
 	{
@@ -55,5 +55,6 @@ char **tokenize_stdin(char *line)
 		token = strtok(NULL, delim);
 	}
 	result[i] = NULL;
+	free(line_copy);
 	return (result);
 }
