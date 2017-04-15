@@ -1,48 +1,55 @@
 #include "headers.h"
 
-typedef struct list_s
+int main(int ac, char **av)
 {
-	char *str;
-	unsigned int len;
-	struct list_s *next;
-} list_t;
+	list_t *head = NULL;
+	char *path = _getenv("PATH");
+
+	if (!path)
+		return (-1);
+	head = path_list(path, head);
+	print_list(head);
+	free_path(head);
+	return (0);
+}
 
 char *_getenv(const char *name)
 {
 	extern char **environ;
 	const char *token;
-	char *result = malloc(sizeof(char) * 256);
+	char *match;
 
+	if (!name)
+		return (NULL);
 	while(*environ)
 	{
 		token = strtok(*environ, "=");
-		while(token)
+		if (strcmp(name, token) == 0)
 		{
-			if (strcmp(name, token) == 0)
-			{
-				token = strtok(NULL, "=");
-				strcpy(result, token);
-				return (result);
-			}
-			token = strtok(NULL, "=");
+			match = strtok(NULL, "\0");
+			return (match);
 		}
 		environ++;
 	}
-	return ("unable to locate requested environmental variable\n");
+	return (NULL);
 }
 
 list_t *add_node_end(list_t **head, const char *str)
 {
 	list_t *new_node = malloc(sizeof(list_t));
 	list_t *temp_node;
+	char *data = malloc(sizeof(char) * (strlen(str) + 2));
 
+	strcpy(data, str);
+	strcat(data, "/");
 	if (!new_node)
+	{
+		free(new_node);
 		return (NULL);
-
-	new_node->str = strdup(str);
-	new_node->len = strlen(str);
+	}
+	new_node->str = strdup(data);
 	new_node->next = NULL;
-
+	free(data);
 	if (!*head)
 		*head = new_node;
 	else
@@ -56,62 +63,65 @@ list_t *add_node_end(list_t **head, const char *str)
 	return (new_node);
 }
 
-size_t print_list(const list_t *h)
+void print_list(const list_t *h)
 {
-	size_t len = 0;
-
 	while (h)
 	{
-		printf("[%u] %s\n", h->len, h->str);
-		h = h->next; len++;
-	}
-	return (len);
-}
-char *exebuiltin(char *file, const list_t *h)
-{
-	unsigned int i;
-	struct stat st;
-	char *path;
-	while (h)
-	{
-		path = malloc(sizeof(char) * (strlen(file) + strlen(h->str)));
-/*		strcat("/", file);
-*/		path = strcat(h->str, file);
-		if (stat(path, &st) == 0)
-		{
-			printf("found %s\n", path);
-			return (path);
-		}
-		else
-			printf("not found %s\n", path);
+		printf("%s\n", h->str);
 		h = h->next;
 	}
-	free(path);
-	return("fail");
-}
-int  main(int ac, char **av)
+}/*
+char *exepath(char *file, const list_t *h)
 {
-	list_t *head = NULL;
-	char *path = _getenv("PATH");
+	struct stat st;
+	char *tmp = malloc(sizeof(char) * strlen(file));
+
+	if (!file || !h)
+	{
+		free(tmp);
+		return (NULL);
+	}
+	tmp = file;
+	while (h)
+	{
+		file = strcat(h->str, file);
+		if (stat(file, &st) == 0)
+		{
+			printf("found %s\n", file);
+			free(tmp);
+			return (file);
+		}
+		else
+			printf("not found %s\n", file);
+		h = h->next;
+		file = tmp;
+	}
+	free(tmp);
+	return("fail");
+}*/
+list_t *path_list(char *path, list_t *head)
+{
 	char *token;
-	char *file;
-	unsigned int i = 1;
+	
 	if (!path)
-		return (-1);
-
+		return (NULL);
 	token = strtok(path, ":");
-
 	while (token)
 	{
 		add_node_end(&head, token);
 		token = strtok(NULL, ":");
 	}
-/*	while (ac != 0)
-	(
-*		exebuiltin(av[i], head);
-*		ac--;
+	return (head);
+}
+void free_path(list_t *head)
+{
+	list_t *i = head;
+	list_t *next = NULL;
+
+	for (; i != NULL; i = next)
+	{
+		next = i->next;
+		free(i->str);
+		free(i);
 	}
-*/
-	exebuiltin(av[1], head);
-	return (0);
 }
