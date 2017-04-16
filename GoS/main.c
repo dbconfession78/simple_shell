@@ -12,42 +12,42 @@ int main(int argc, char *argv[])
 	path_t *path_head = NULL;
 	char *line = NULL;
 	size_t line_size = 0;
-	char **tokenized_stdin = NULL;
+	char **args = NULL;
+	info_t *info = malloc(sizeof(info_t));
 
+	if (info == NULL)
+		return (-1);
+
+	init_shell(info);
 	path = _getenv("PATH");
 	path_head = list_tokenized_path(path);
+	info->path_head = path_head;
 	signal(SIGINT, signal_handler);
 	if (argc == 1)
 		set_prompt();
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
+		info->line = line;
+//		if (strcmp(line, "exit\n") == 0)
+//			exit_shell(NULL, info);
 		if (_strcmp(line, "\n") == 0)
 		{
 			set_prompt();
 			continue;
 		}
-		tokenized_stdin = tokenize_stdin(line);
-		if(check_built_ins(tokenized_stdin[0], tokenized_stdin) == 1)
+		args = tokenize_stdin(line);
+		info->args = args;
+		if(!(exec_builtin_cmd(args[0], args, info)))
 		{
-			printf("*****TODO: CHECK  BUILT-INS*****\n");
-			getchar();
-			if (check_path(tokenized_stdin[0], tokenized_stdin, path_head) == 1)
-			{
-				perror("Error");
-				
-			}
+//			printf("didnt run built in. try running from path\n.\n");
+			exec_path_cmd(args[0], args, path_head);
 		}
-		else
-		{
-			printf("is a built-in\n");
-			/* check_built_ins succeeded */
-		}
-		free(tokenized_stdin);
+		free(args);
 		set_prompt();
 	}
 	free_path_list(path_head);
-	if (line)
-		free(line);
+	free(line);
+	free(info);
 	return (EXIT_SUCCESS);
 }
 
@@ -94,4 +94,12 @@ char *_getenv(char *var_name)
 		environ++;
 	}
 	return (env_value);
+}
+
+void init_shell (info_t *info)
+{
+//	info->env = NULL;
+	info->args = NULL;
+	info->path_head = NULL;
+	info->line = NULL;
 }

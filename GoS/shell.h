@@ -34,8 +34,15 @@ typedef struct env_s
 {
 	char *env_var;
 	struct env_s *next;
-
 } env_t;
+
+typedef struct info_s
+{
+//	env_t *env;
+	char **args;
+	path_t *path_head;
+	char *line;
+} info_t;
 
 void set_prompt(void);
 char *_getenv(char *var_name);
@@ -54,8 +61,9 @@ void free_path_list(path_t *head);
 void signal_handler(int sig);
 void set_prompt(void);
 char **tokenize_stdin(char *line);
-int check_built_ins(char *cmd, char **args);
-int check_path(char *cmd, char **args, path_t *path_head);
-int change_directory(char **args);
-
+int exec_builtin_cmd(char *cmd, char **args, info_t *info);
+int exec_path_cmd(char *cmd, char **args, path_t *path_head);
+int change_directory(char *dir, char **args);
+void init_shell (info_t *info);
+void print_env(void);
 #endif

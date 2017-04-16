@@ -1,6 +1,29 @@
 #include "shell.h"
 
 /**
+ * init_env_list - builds environmental variables linked list from extern
+ * @environ: environmental varibales from extern
+ * @head: pointer to start of list
+ * Return: void
+ */
+void init_env_list(char **environ, env_t **head)
+{
+	char *token;
+
+	while (*environ)
+	{
+		token = strtok(*environ, "\n");
+		while (token)
+		{
+			add_env_node(head, token);
+			token = strtok(NULL, "\n");
+		}
+		environ++;
+	}
+
+}
+
+/**
  * _setenv - edits value of existing variable or adds new var if doesn't exist
  * @name: name of env variable
  * @value: value of env variable
