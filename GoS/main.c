@@ -8,12 +8,10 @@
  */
 int main(int argc, char *argv[])
 {
-	char *path = NULL;
+	char *path = NULL, *line = NULL, **args = NULL;
 	path_t *path_head = NULL;
 	env_t *env_head = NULL;
-	char *line = NULL;
 	size_t line_size = 0;
-	char **args = NULL;
 	info_t *info = malloc(sizeof(info_t));
 	struct stat stats;
 
@@ -21,34 +19,26 @@ int main(int argc, char *argv[])
 		return (-1);
 	init_shell(info);
 	info->env_head = init_env_list(environ, &env_head);
-
-/* START TEST */
-/* END TEST */
 	path = _getenv("PATH", env_head)->value;
 	path_head = list_tokenized_path(path);
 	info->path_head = path_head;
 	signal(SIGINT, signal_handler);
 	fstat(0, &stats);
 	if (S_ISCHR(stats.st_mode))
-	{
- 		set_prompt();
-	}
+		set_prompt();
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
 		info->line = line;
 		if (_strcmp(line, "\n") == 0)
-		{
-			set_prompt();
-			continue;
-		}
+			set_prompt(); continue;
 		args = tokenize_stdin(line);
 		if (!(exec_builtin_cmd(args[0], args, info)))
-			if(!exec_path_cmd(args[0], args, path_head, info))
+			if (!exec_path_cmd(args[0], args, path_head, info))
 				perror("Error");
 		free(args);
 		set_prompt();
 		if (!S_ISCHR(stats.st_mode))
- 			_putchar('\n');
+			_putchar ('\n');
 	}
 	free_env_list(env_head);
 	free_path_list(path_head);

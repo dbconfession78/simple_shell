@@ -38,9 +38,9 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
  * @cmd: command to check for
  * @args: arguments received by getline
  * @path_head: pointer to first node of path_t list
+ * @info: pointer to shell information struct
  * Return: TRUE (1) on success; FALSE (0) on failure
  */
-
 int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 {
 	path_t *temp;

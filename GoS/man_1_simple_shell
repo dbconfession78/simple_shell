@@ -1,7 +1,7 @@
 .TH man 1 "17 April 2017" "1.0" "The Gates of Shell"
 .SH NAME
-.B GoS 
-- 
+.B GoS
+-
 .B The Gates of Shell
 .SH SYNOPSIS
 GoS [command string]
