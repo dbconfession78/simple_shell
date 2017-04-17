@@ -20,6 +20,9 @@ int main(int argc, char *argv[])
 		return (-1);
 	init_shell(info);
 	info->env_head = init_env_list(environ, &env_head);
+
+/* START TEST */
+/* END TEST */
 	path = _getenv("PATH", env_head)->value;
 	path_head = list_tokenized_path(path);
 	info->path_head = path_head;
@@ -36,7 +39,8 @@ int main(int argc, char *argv[])
 		}
 		args = tokenize_stdin(line);
 		if (!(exec_builtin_cmd(args[0], args, info)))
-			exec_path_cmd(args[0], args, path_head);
+			if(!exec_path_cmd(args[0], args, path_head))
+				perror("Error");
 		free(args);
 		set_prompt();
 	}

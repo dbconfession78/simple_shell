@@ -73,8 +73,10 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info);
 int exec_path_cmd(char *cmd, char **args, path_t *path_head);
 int change_directory(char *dir, char **args);
 void init_shell(info_t *info);
-void print_env(void);
+int print_env(env_t **head);
 char **alloc_grid(int height);
 env_t *init_env_list(char **environ, env_t **head);
 void exit_shell(char *exit_status, char **args, info_t *info);
+char **env_list_to_array(env_t *env_head);
+int free_string_array(char **array);
 #endif

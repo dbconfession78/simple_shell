@@ -41,18 +41,53 @@ void exit_shell(char *exit_status, char **args, info_t *info)
 
 /**
  * print_env - prints the current environment
- *
- *
- * Return: void
+ * @head: pointer to first node in env_t struct
+ * Return: 0 on success;  -1 otherwise
  */
-
-void print_env(void)
+int print_env(env_t **head)
 {
+	char **env_array;
 	int i = 0;
 
-	while (environ[i])
+	env_array = env_list_to_array(*head);
+	if (!env_array)
+		return (-1);
+	while (env_array[i])
+		printf("%s\n", env_array[i++]);
+	free_string_array(env_array);
+	return (0);
+}
+
+/**
+ * env_list_to_array - puts env_t list values into a 2d array
+ * @env_head: pointer to first node in env_t list
+ * Return: pointer to array of env variables
+ */
+char **env_list_to_array(env_t *env_head)
+{
+	env_t *temp_node = env_head;
+	char **result;
+	int len = 0;
+	int i = 0;
+
+	while (temp_node->next)
 	{
-		_puts(environ[i]);
+		temp_node = temp_node->next;
+		len++;
+	}
+	temp_node = env_head;
+	result = malloc(sizeof(char *) * (len + 1));
+	while (temp_node->next)
+	{
+		result[i] = malloc(sizeof(char) * (_strlen(temp_node->name) +
+										   _strlen(temp_node->value) + 2));
+		_strcpy(result[i], temp_node->name);
+		_strcat(result[i], "=");
+		_strcat(result[i], temp_node->value);
+		_strcat(result[i], "\0");
+		temp_node = temp_node->next;
 		i++;
 	}
+	result[i] = NULL;
+	return (result);
 }

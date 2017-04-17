@@ -11,14 +11,14 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 {
 	if (_strcmp(cmd, "cd") == 0)
 		change_directory(args[1], args);
+	else if (_strcmp(cmd, "exit") == 0)
+		exit_shell(NULL, args, info);
+	else if (_strcmp(cmd, "env") == 0)
+		print_env(&info->env_head);
 	else if (_strcmp(cmd, "setenv") == 0)
 		; /* TODO */
 	else if (_strcmp(cmd, "unsetenv") == 0)
 		; /* TODO */
-	else if (_strcmp(cmd, "exit") == 0)
-		exit_shell(NULL, args, info);
-	else if (_strcmp(cmd, "env") == 0)
-		print_env();
 	else if (_strcmp(cmd, "history") == 0)
 		; /* TODO */
 	else if (_strcmp(cmd, "help") == 0)

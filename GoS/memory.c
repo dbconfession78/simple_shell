@@ -36,3 +36,23 @@ void free_env_list(env_t *head)
 		free(i);
 	}
 }
+
+/**
+ * free_string_array - frees memory allocated by a double pointer
+ * @array: 2D array to free
+ * Return: TRUE (1) on success; FALSE (0 on fail)
+ */
+int free_string_array(char **array)
+{
+	int i = 0;
+
+	if (!array)
+		return (FALSE);
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
+	return (TRUE);
+}
