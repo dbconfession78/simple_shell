@@ -11,8 +11,12 @@ int change_directory(char *dir, char **args)
 	pid_t pid;
 	int status;
 
-	if (!chdir(dir))
+	if (chdir(dir) == -1)
+	{
+		printf("-1\n");
 		return (-1);
+	}
+	printf("0\n");
 	return (0);
 }
 

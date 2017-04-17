@@ -41,12 +41,13 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
  * Return: TRUE (1) on success; FALSE (0) on failure
  */
 
-int exec_path_cmd(char *cmd, char **args, path_t *path_head)
+int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 {
 	path_t *temp;
 	char *file_path;
 	pid_t pid;
 	int status;
+	char **env_array;
 
 	temp = path_head;
 	while (temp->next)
@@ -60,7 +61,10 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head)
 		{
 			pid = fork();
 			if (pid == 0)
-				execve(file_path, args, environ);
+			{
+				env_array = env_list_to_array(info->env_head);
+				execve(file_path, args, env_array);
+			}
 			else if (pid < 0)
 			{
 				perror("Error");

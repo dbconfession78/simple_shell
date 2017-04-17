@@ -30,7 +30,9 @@ int main(int argc, char *argv[])
 	signal(SIGINT, signal_handler);
 	fstat(0, &stats);
 	if (S_ISCHR(stats.st_mode))
+	{
  		set_prompt();
+	}
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
 		info->line = line;
@@ -41,7 +43,7 @@ int main(int argc, char *argv[])
 		}
 		args = tokenize_stdin(line);
 		if (!(exec_builtin_cmd(args[0], args, info)))
-			if(!exec_path_cmd(args[0], args, path_head))
+			if(!exec_path_cmd(args[0], args, path_head, info))
 				perror("Error");
 		free(args);
 		set_prompt();
