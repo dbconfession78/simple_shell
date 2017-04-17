@@ -4,6 +4,7 @@
  * exec_builtin_cmd - checks to see if command is a built in
  * @cmd: command passed to main
  * @args: arguments passed with command
+ * @info: the info_t struct
  * Return: returns TRUE (1) on success, FALSE (0) on fail.
  */
 int exec_builtin_cmd(char *cmd, char **args, info_t *info)
@@ -11,21 +12,21 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 	if (_strcmp(cmd, "cd") == 0)
 		change_directory(args[1], args);
 	else if (_strcmp(cmd, "setenv") == 0)
-		/* TODO */;
+		; /* TODO */
 	else if (_strcmp(cmd, "unsetenv") == 0)
-		/* TODO */;
+		; /* TODO */
 	else if (_strcmp(cmd, "exit") == 0)
-		exit_shell(NULL, info);
+		exit_shell(NULL, args, info);
 	else if (_strcmp(cmd, "env") == 0)
 		print_env();
 	else if (_strcmp(cmd, "history") == 0)
-		/* TODO */;
+		; /* TODO */
 	else if (_strcmp(cmd, "help") == 0)
-		/* TODO */;
+		; /* TODO */
 	else if (_strcmp(cmd, "alias") == 0)
-		/* TODO */;
+		; /* TODO */
 	else if (_strcmp(cmd, "unalias") == 0)
-		/* TODO */;
+		; /* TODO */
 	else
 		return (FALSE);
 
@@ -33,8 +34,10 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 }
 
 /**
- * check_path - checks PATH directories for existance of command
+ * exec_path_cmd - checks/executes commandss in the PATH directories
  * @cmd: command to check for
+ * @args: arguments received by getline
+ * @path_head: pointer to first node of path_t list
  * Return: TRUE (1) on success; FALSE (0) on failure
  */
 
@@ -61,7 +64,7 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head)
 			else if (pid < 0)
 			{
 				perror("Error");
-				exit (1000); /*TODO: handle exit values */
+				exit(1000); /*TODO: handle exit values */
 			}
 			else
 			{

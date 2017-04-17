@@ -1,24 +1,6 @@
 #include "shell.h"
 
 /**
- * free_path_list - frees a list_t list
- * @head: linked list
- * Return: void
- */
-void free_path_list(path_t *head)
-{
-	path_t *i = head;
-	path_t *next = NULL;
-
-	for (; i != NULL; i = next)
-	{
-		next = i->next;
-		free(i->path_dir);
-		free(i);
-	}
-}
-
-/**
  * add_path_node_end - adds new node at end of a list_t list.
  * @head: array of linked list_t structures
  * @path_dir: path directory

@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 {
 	char *path = NULL;
 	path_t *path_head = NULL;
+	env_t *env_head = NULL;
 	char *line = NULL;
 	size_t line_size = 0;
 	char **args = NULL;
@@ -17,9 +18,9 @@ int main(int argc, char *argv[])
 
 	if (info == NULL)
 		return (-1);
-
 	init_shell(info);
-	path = _getenv("PATH");
+	info->env_head = init_env_list(environ, &env_head);
+	path = _getenv("PATH", env_head)->value;
 	path_head = list_tokenized_path(path);
 	info->path_head = path_head;
 	signal(SIGINT, signal_handler);
@@ -28,23 +29,18 @@ int main(int argc, char *argv[])
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
 		info->line = line;
-//		if (strcmp(line, "exit\n") == 0)
-//			exit_shell(NULL, info);
 		if (_strcmp(line, "\n") == 0)
 		{
 			set_prompt();
 			continue;
 		}
 		args = tokenize_stdin(line);
-		info->args = args;
-		if(!(exec_builtin_cmd(args[0], args, info)))
-		{
-//			printf("didnt run built in. try running from path\n.\n");
+		if (!(exec_builtin_cmd(args[0], args, info)))
 			exec_path_cmd(args[0], args, path_head);
-		}
 		free(args);
 		set_prompt();
 	}
+	free_env_list(env_head);
 	free_path_list(path_head);
 	free(line);
 	free(info);
@@ -73,33 +69,14 @@ path_t *list_tokenized_path(char *path)
 }
 
 /**
- * _getenv - get value of specified env variable
- * @var_name: name of env variable to get value of
- * Return: value of requested env var
+ * init_shell - initializes variables held by the info_t struct
+ * @info: info_t struct whose variables are to be initialized
+ * Return: void
  */
-char *_getenv(char *var_name)
-{
-	char *env_value = NULL;
 
-	if (!var_name)
-		return (NULL);
-	while (*environ)
-	{
-		env_value = strtok(*environ, "=");
-		if (strcmp(var_name, env_value) == 0)
-		{
-			env_value = strtok(NULL, "\0");
-			return (env_value);
-		}
-		environ++;
-	}
-	return (env_value);
-}
-
-void init_shell (info_t *info)
+void init_shell(info_t *info)
 {
-//	info->env = NULL;
-	info->args = NULL;
+	info->env_head = NULL;
 	info->path_head = NULL;
 	info->line = NULL;
 }

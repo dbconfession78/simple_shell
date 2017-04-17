@@ -31,22 +31,21 @@ int _strcmp(char *s1, char *s2)
 }
 
 /**
- * _strdup - returns a pointer to memory with a copy with a copy of the string
- * @str: string
- * Return: mem
+ * _strdup - duplicates a string to a newly allocated space
+ * @str: string to duplicate
+ * Return: returns pointer to duplicated string
  */
 char *_strdup(char *str)
 {
-	int i, len;
-	char *mem;
+	char *dupe;
 
-	if (str == '\0')
+	if (!str)
 		return (NULL);
-	len = _strlen(str);
-	mem = malloc(sizeof(char) * len + 1);
-	for (i = 0; i <= len; i++)
-		mem[i] = str[i];
-	return (mem);
+	dupe = malloc(_strlen(str) + 1);
+	if (!dupe)
+		return (NULL);
+	_strcpy(dupe, str);
+	return (dupe);
 }
 
 /**
