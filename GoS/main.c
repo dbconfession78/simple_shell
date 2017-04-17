@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 	size_t line_size = 0;
 	char **args = NULL;
 	info_t *info = malloc(sizeof(info_t));
+	struct stat stats;
 
 	if (info == NULL)
 		return (-1);
@@ -27,8 +28,9 @@ int main(int argc, char *argv[])
 	path_head = list_tokenized_path(path);
 	info->path_head = path_head;
 	signal(SIGINT, signal_handler);
-	if (argc == 1)
-		set_prompt();
+	fstat(0, &stats);
+	if (S_ISCHR(stats.st_mode))
+ 		set_prompt();
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
 		info->line = line;
@@ -43,6 +45,8 @@ int main(int argc, char *argv[])
 				perror("Error");
 		free(args);
 		set_prompt();
+		if (!S_ISCHR(stats.st_mode))
+ 			_putchar('\n');
 	}
 	free_env_list(env_head);
 	free_path_list(path_head);
