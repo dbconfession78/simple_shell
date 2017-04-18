@@ -54,8 +54,8 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 		file_path = malloc(sizeof(char) * (_strlen(temp->path_dir) +
 										   _strlen(cmd) + 1));
 		_strcpy(file_path, temp->path_dir);
-		strncat(file_path, cmd, _strlen(cmd)); /* create custom _strncat(...)*/
-		strcat(file_path, "\0");
+		_strncat(file_path, cmd, _strlen(cmd)); /* create custom _strncat(...)*/
+		_strcat(file_path, "\0");
 		if (access(file_path, X_OK) == 0)
 		{
 			pid = fork();
@@ -78,6 +78,39 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 		}
 		free(file_path);
 		temp = temp->next;
+	}
+	return (FALSE);
+}
+/**
+ * exec_path_cmd - checks/executes commandss in the PATH directories
+ * @cmd: command to check for
+ * @args: arguments received by getline
+ * @path_head: pointer to first node of path_t list
+ * @info: pointer to shell information struct
+ * Return: TRUE (1) on success; FALSE (0) on failure
+ */
+int exec_filename(char *cmd, char **args)
+{
+	pid_t pid;
+	int status;
+
+	if (access(cmd, X_OK) == 0)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			execve(cmd, args, environ);
+		}
+		else if (pid < 0)
+		{
+			perror("Error");
+			exit(1000); /*TODO: handle exit values */
+		}
+		else
+		{
+			wait(&status);
+		}
+		return (TRUE);
 	}
 	return (FALSE);
 }

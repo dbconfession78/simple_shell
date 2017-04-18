@@ -37,6 +37,7 @@ int main(/*int argc, char *argv[]*/void)
 		args = tokenize_stdin(line);
 		if (!(exec_builtin_cmd(args[0], args, info)))
 			if (!exec_path_cmd(args[0], args, path_head, info))
+				if (!exec_filename(args[0], args))
 				perror("Error");
 		free(args);
 		set_prompt();
