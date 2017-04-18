@@ -79,7 +79,9 @@ $ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 - write
 - _exit
 
-## GoS
+```
+
+# GoS
 
 ### HANDLED COMMANDS
 
@@ -131,3 +133,4 @@ void free_info(info_t *info);
 void free_env_list(env_t *head);
 char *_strncat(char *dest, char *src, size_t n);
 int exec_filename(char *cmd, char **args);
+```
