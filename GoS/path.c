@@ -10,13 +10,13 @@
 int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 {
 	if (_strcmp(cmd, "cd") == 0)
-		change_directory(args[1], args);
+		change_directory(args[1], args, info);
 	else if (_strcmp(cmd, "exit") == 0)
 		exit_shell(NULL, args, info);
 	else if (_strcmp(cmd, "env") == 0)
 		print_env(&info->env_head, info);
 	else if (_strcmp(cmd, "setenv") == 0)
-		_setenv(args[1], args[2], &info->env_head);
+		_setenv(args[1], args[2], info->env_head);
 	else if (_strcmp(cmd, "unsetenv") == 0)
 		; /* TODO */
 	else if (_strcmp(cmd, "history") == 0)
@@ -29,7 +29,6 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 		; /* TODO */
 	else
 		return (FALSE);
-
 	return (TRUE);
 }
 

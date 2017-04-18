@@ -66,5 +66,4 @@ void free_info(info_t *info)
 {
 	free_env_list(info->env_head);
 	free_path_list(info->path_head);
-	free(info->line);
 }

@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 			_putchar ('\n');
 	}
 	free_info(info);
+	free(line);
 	free(info);
 	return (EXIT_SUCCESS);
 }

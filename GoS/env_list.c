@@ -23,7 +23,9 @@ env_t *init_env_list(char **environ, env_t **head)
 			new_node->name = _strdup(token);
 		token = strtok(NULL, "\n");
 		if (token)
+		{
 			new_node->value = _strdup(token);
+		}
 		free(env_var);
 		if (*head == NULL)
 		{
@@ -52,21 +54,27 @@ env_t *init_env_list(char **environ, env_t **head)
  * @head: pointer to first node in env_t list
  * Return: pointer to updated or new node
  */
-env_t *_setenv(char *name, char *value, env_t **head)
+env_t *_setenv(char *name, char *value, env_t *head)
 {
 	env_t *temp;
+	char *new_val;
 
-	temp = *head;
-	while (temp->next)
+	temp = head;
+	if (!name || !value)
 	{
-		temp = temp->next;
-		if (strcmp(name, temp->name) == 0)
-		{
-			temp->value = strdup(value);
-			return (temp);
-		}
+		perror("Error");
+		return (NULL);
 	}
-	add_env_node(head, name, value);
+	temp = _getenv(name, head);
+	if (temp)
+	{
+		new_val = _strdup(value);
+		free(temp->value);
+		temp->value = new_val;
+		return (temp);
+
+	}
+	return (add_env_node(&head, name, value));
 }
 
 /**
@@ -78,20 +86,28 @@ env_t *_setenv(char *name, char *value, env_t **head)
  */
 env_t *add_env_node(env_t **head, char *name, char *value)
 {
-	env_t *new_node = malloc(sizeof(env_t));
+	env_t *new_node;
 	env_t *temp_node;
+
+	if (!name || !head || !value)
+		return (NULL);
+
+	new_node = malloc(sizeof(env_t));
 
 	if (!new_node)
 		return (NULL);
 
 	new_node->name = _strdup(name);
 	new_node->value = _strdup(value);
-	new_node->next = NULL;
 
 	if (!*head)
+	{
+		new_node->next = *head;
 		*head = new_node;
+	}
 	else
 	{
+		new_node->next = NULL;
 		temp_node = *head;
 		while (temp_node->next)
 			temp_node = temp_node->next;
