@@ -72,7 +72,7 @@ void set_prompt(void);
 char **tokenize_stdin(char *line);
 int exec_builtin_cmd(char *cmd, char **args, info_t *info);
 int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info);
-int change_directory(char *dir, char **args, info_t *info);
+int change_directory(char **args, info_t *info);
 void init_shell(info_t *info);
 int print_env(env_t **head, info_t *info);
 char **alloc_grid(int height);
