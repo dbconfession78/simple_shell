@@ -38,7 +38,7 @@ int main(/*int argc, char *argv[]*/void)
 		if (!(exec_builtin_cmd(args[0], args, info)))
 			if (!exec_path_cmd(args[0], args, path_head, info))
 				if (!exec_filename(args[0], args))
-				perror("Error");
+					perror("Error");
 		free(args);
 		set_prompt();
 		if (!S_ISCHR(stats.st_mode))
@@ -58,10 +58,16 @@ int main(/*int argc, char *argv[]*/void)
 path_t *list_tokenized_path(char *path)
 {
 	char *token;
+	char *path_copy;
 	path_t *head = NULL;
 	int i = 0;
 
-	token = strtok(path, ":");
+	path_copy = malloc(sizeof(char) * _strlen(path) + 1);
+	if (!path_copy)
+		return (NULL);
+
+	_strcpy(path_copy, path);
+	token = strtok(path_copy, ":");
 	while (token)
 	{
 		add_path_node_end(&head, token);
