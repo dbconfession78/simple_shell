@@ -83,7 +83,10 @@ int print_env(env_t **head, __attribute__((__unused__))info_t *info)
 	while (temp_node->next)
 	{
 		temp_node = temp_node->next;
-		printf("%s=%s\n", temp_node->name, temp_node->value);
+		write(STDOUT_FILENO, temp_node->name, _strlen(temp_node->name));
+		write(STDOUT_FILENO, "=", 1);
+		write(STDOUT_FILENO, temp_node->value, _strlen(temp_node->value));
+		_putchar('\n');
 	}
 	return (0);
 }

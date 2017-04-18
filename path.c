@@ -9,6 +9,8 @@
  */
 int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 {
+	if (!cmd)
+		return(TRUE);
 	if (_strcmp(cmd, "cd") == 0)
 		change_directory(args[1], args, info);
 	else if (_strcmp(cmd, "exit") == 0)
