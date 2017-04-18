@@ -10,7 +10,7 @@
 #include <signal.h>
 #include <sys/wait.h>
 
-#define PROMPT "🔥" 
+#define PROMPT "🔥  " 
 #define TRUE 1
 #define FALSE 0
 
