@@ -74,6 +74,7 @@ path_t *list_tokenized_path(char *path)
 		token = strtok(NULL, ":");
 		i++;
 	}
+	free(path_copy);
 	return (head);
 }
 
