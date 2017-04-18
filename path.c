@@ -82,11 +82,9 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 	return (FALSE);
 }
 /**
- * exec_path_cmd - checks/executes commandss in the PATH directories
+ * exec_filename - checks/executes commands
  * @cmd: command to check for
  * @args: arguments received by getline
- * @path_head: pointer to first node of path_t list
- * @info: pointer to shell information struct
  * Return: TRUE (1) on success; FALSE (0) on failure
  */
 int exec_filename(char *cmd, char **args)
