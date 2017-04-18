@@ -14,9 +14,9 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 	else if (_strcmp(cmd, "exit") == 0)
 		exit_shell(NULL, args, info);
 	else if (_strcmp(cmd, "env") == 0)
-		print_env(&info->env_head);
+		print_env(&info->env_head, info);
 	else if (_strcmp(cmd, "setenv") == 0)
-		; /* TODO */
+		_setenv(args[1], args[2], &info->env_head);
 	else if (_strcmp(cmd, "unsetenv") == 0)
 		; /* TODO */
 	else if (_strcmp(cmd, "history") == 0)

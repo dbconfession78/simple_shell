@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 		return (-1);
 	init_shell(info);
 	info->env_head = init_env_list(environ, &env_head);
-//	_setenv("moop", "mop", &ainfo->env_head);
 	path = _getenv("PATH", env_head)->value;
 	path_head = list_tokenized_path(path);
 	info->path_head = path_head;
@@ -45,9 +44,6 @@ int main(int argc, char *argv[])
 			_putchar ('\n');
 	}
 	free_info(info);
-	//free_env_list(info->env_head);
-	//free_path_list(path_head);
-	//free(info->line);
 	free(info);
 	return (EXIT_SUCCESS);
 }
