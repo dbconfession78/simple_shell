@@ -1,0 +1,37 @@
+.TH man 1 "17 April 2017" "1.0" "The Gates of Shell"
+.SH NAME
+.B GoS
+-
+.B The Gates of Shell
+.SH SYNOPSIS
+GoS [command string]
+.PP
+.SH DESCRIPTION
+The Gates of Shell is a simple UNIX command interpreter.
+.PP
+.SH SHELL BUILT-IN COMMANNDS
+.SS cd [DIRECTORY]
+Change the current working directory. If DIRECTORY is empty, the value of the command will be interpreted like $HOME.
+.SS env
+	Print the environment variables to STDOUT.
+.SS exit
+	Exit the shell.
+.SH COMMAND EXECUTION
+After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
+.PP
+If the name is not a builtin, and contains no slashes, GoS searches each element of the PATH for a directory containing an executable file by that name.
+.PP
+If the search is successful, the shell executes the named program in a separate execution environment.
+.P
+.SH ENVIRONMENT
+When a program is invoked it is given an array of strings called the environment. This is a list of name-value pairs, of the form name=value.
+.PP
+.SH PROMPTING
+When executing interactively, GoS displays the primary prompt PS1 when it is ready to read a command.
+.PP
+.SH SEE ALSO
+bash(1), csh(1), echo(1), getopt(1), ksh(1), login(1), printf(1), test(1), getopt(3), passwd(5), environ(7), sysctl(8)
+.SH BUGS
+No known bugs.
+.SH AUTHORS
+Stuart Kuredjian, Jared Heck, Max Johnson, Spencer Cheng
