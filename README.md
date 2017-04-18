@@ -19,7 +19,6 @@ More specific goals include:
 - understanding what and how EOF / "end-of-file" works
 
 # COLLABORATORS (Holberton School Batch 2)
---------
 
 Stuart Kuredjian - https://github.com/dbconfession78 || [Twitter](https://twitter.com/StueyGK)
 
@@ -81,12 +80,12 @@ $ gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
 
 ```
 
-# GoS
+## GoS
 
-### HANDLED COMMANDS
+## COMMANDS HANDLED
 
 #### PATH COMMANDS
-GoS shell will handle commands whose executable files (i.e. ready-to-run programs) reside in the PATH environmental variable. PATH specifies a set of directories where executable programs are located:
+GoS shell will resolve commands whose executable files (i.e. ready-to-run programs) reside in the PATH environmental variable. PATH specifies a set of directories where executable programs are located:
 
 ```
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
@@ -98,7 +97,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/us
 - [ ] | - `piping`
 
 
-# FUNCTIONS
+#i# FUNCTIONS
 
 ```
 void set_prompt(void);
