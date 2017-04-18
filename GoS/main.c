@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 		return (-1);
 	init_shell(info);
 	info->env_head = init_env_list(environ, &env_head);
+//	_setenv("moop", "mop", &ainfo->env_head);
 	path = _getenv("PATH", env_head)->value;
 	path_head = list_tokenized_path(path);
 	info->path_head = path_head;
@@ -30,7 +31,10 @@ int main(int argc, char *argv[])
 	{
 		info->line = line;
 		if (_strcmp(line, "\n") == 0)
-			set_prompt(); continue;
+		{
+			set_prompt();
+			continue;
+		}
 		args = tokenize_stdin(line);
 		if (!(exec_builtin_cmd(args[0], args, info)))
 			if (!exec_path_cmd(args[0], args, path_head, info))
@@ -40,9 +44,10 @@ int main(int argc, char *argv[])
 		if (!S_ISCHR(stats.st_mode))
 			_putchar ('\n');
 	}
-	free_env_list(env_head);
-	free_path_list(path_head);
-	free(line);
+	free_info(info);
+	//free_env_list(info->env_head);
+	//free_path_list(path_head);
+	//free(info->line);
 	free(info);
 	return (EXIT_SUCCESS);
 }

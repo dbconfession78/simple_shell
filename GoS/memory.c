@@ -56,3 +56,15 @@ int free_string_array(char **array)
 	free(array);
 	return (TRUE);
 }
+
+/**
+ * free_info - frees all lements of the info_t struct
+ * @info: pointer to the info_t struct
+ * Return: void
+ */
+void free_info(info_t *info)
+{
+	free_env_list(info->env_head);
+	free_path_list(info->path_head);
+	free(info->line);
+}

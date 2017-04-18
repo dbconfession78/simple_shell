@@ -79,4 +79,5 @@ env_t *init_env_list(char **environ, env_t **head);
 void exit_shell(char *exit_status, char **args, info_t *info);
 char **env_list_to_array(env_t *env_head);
 int free_string_array(char **array);
+void free_info(info_t *info);
 #endif
