@@ -53,3 +53,20 @@ int _atoi(char *s)
 		result *= 1;
 	return (result);
 }
+/**
+* _strncat - concatenates two string up to n bytes
+* @src: first string
+* @dest: second string
+* @n: number of bytes to concatenate
+* Return: Pointer to dest string
+*/
+char *_strncat(char *dest, char *src, size_t n)
+{
+	size_t i, dlen = _strlen(dest);
+
+	for (i = 0; i < n && src[i] != '\0'; i++)
+		dest[dlen + i] = src[i];
+	dest[dlen + i] = '\0';
+	return (dest);
+}
+
