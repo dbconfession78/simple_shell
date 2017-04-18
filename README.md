@@ -18,7 +18,7 @@ More specific goals include:
 - learning how  to suspend the execution of a process until one of its children terminates
 - understanding what and how EOF / "end-of-file" works
 
-# COLLABORATORS (Holberton School Batch 2)
+## COLLABORATORS (Holberton School Batch 2)
 
 Stuart Kuredjian - https://github.com/dbconfession78 || [Twitter](https://twitter.com/StueyGK)
 
@@ -97,7 +97,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/us
 - [ ] | - `piping`
 
 
-#i# FUNCTIONS
+## FUNCTIONS
 
 ```
 void set_prompt(void);
