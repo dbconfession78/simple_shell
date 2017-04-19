@@ -35,10 +35,7 @@ int main(/*int argc, char *argv[]*/void)
 			continue;
 		}
 		args = tokenize_stdin(line);
-		if (!(exec_builtin_cmd(args[0], args, info)))
-			if (!exec_path_cmd(args[0], args, path_head, info))
-				if (!exec_filename(args[0], args))
-					perror("Error");
+		run_program(args, info);
 		free(args);
 		set_prompt();
 		if (!S_ISCHR(stats.st_mode))
@@ -48,6 +45,26 @@ int main(/*int argc, char *argv[]*/void)
 	free(line);
 	free(info);
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * run_program - executes command with arguments
+ * @args: arguments supplied at command line
+ * @info: pointer to the info_t struct
+ * Return: 0 if succesful; -1 otherwise
+ */
+int run_program(char **args, info_t *info)
+{
+	char *cmd = args[0];
+	path_t  *path_head = info->path_head;
+	if (!(exec_builtin_cmd(cmd, args, info)))
+		if (!exec_filename(cmd, args))
+			if (!exec_path_cmd(cmd, args, path_head, info))
+			{
+				perror("Error");
+				return (-1);
+			}
+	return (0);
 }
 
 /**
