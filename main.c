@@ -2,8 +2,6 @@
 
 /**
  * main - entry point for shell
- * @argc: arg count
- * @argv: arguments
  * Return: always return 0
  */
 int main(/*int argc, char *argv[]*/void)
@@ -59,11 +57,16 @@ int run_program(char **args, info_t *info)
 	path_t  *path_head = info->path_head;
 	if (!(exec_builtin_cmd(cmd, args, info)))
 		if (!exec_filename(cmd, args))
-			if (!exec_path_cmd(cmd, args, path_head, info))
+		{
+			if (cmd[0] != '.' && cmd[1] != '/')
 			{
-				perror("Error");
-				return (-1);
+				if (!exec_path_cmd(cmd, args, path_head, info))
+				{
+					perror("Error");
+					return (-1);
+				}
 			}
+		}
 	return (0);
 }
 

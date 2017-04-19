@@ -2,15 +2,13 @@
 
 /**
  * change_directory - calls cd built-in
- * @dir: directory to change to
  * @args: arguments received at getline
  * @info: pointer to info_t struct
  * Return: 0 on success, -1 on failure
  */
-int change_directory(char *dir, char **args, info_t *info)
+int change_directory(char **args, info_t *info)
 {
 	char *old_cwd, *home, *token;
-	dir++;
 
 	token = args[1];
 	old_cwd = getcwd(NULL, 100);
