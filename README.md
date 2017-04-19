@@ -203,7 +203,7 @@ This project's purpose is to:
 
 *Jared Heck* - [Github](https://github.com/ajrehec) || [Twitter](https://twitter.com/XXXXX?????) || [LinkedIn](https://www.linkedin.com/in/jared-heck-28a469133/)
 
-*Spencer Cheng* - [Github](https://github.com/spencerhcheng) || [Twitter](https://twitter.com/spencerhcheng)] || [LinkedIn] (https://www.linkedin.com/in/spencer-cheng-284b4b55/)
+*Spencer Cheng* - [Github](https://github.com/spencerhcheng) || [Twitter](https://twitter.com/spencerhcheng)] || [LinkedIn](https://www.linkedin.com/in/spencer-cheng-284b4b55/)
 
 *Max Johnson* - [Github](https://github.com/mj31508) || [Twitter](https://twitter.com/MBJohnson31) || [LinkedIn](https://www.linkedin.com/in/max-johnson-697282b4/)
 
