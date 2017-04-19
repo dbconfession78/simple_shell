@@ -38,7 +38,7 @@ int main(/*int argc, char *argv[]*/void)
 		set_prompt();
 		if (!S_ISCHR(stats.st_mode))
 			_putchar ('\n');
-	} 
+	}
 	free_info(info);
 	free(line);
 	free(info);
