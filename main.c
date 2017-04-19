@@ -2,8 +2,6 @@
 
 /**
  * main - entry point for shell
- * @argc: arg count
- * @argv: arguments
  * Return: always return 0
  */
 int main(/*int argc, char *argv[]*/void)
@@ -35,19 +33,51 @@ int main(/*int argc, char *argv[]*/void)
 			continue;
 		}
 		args = tokenize_stdin(line);
-		if (!(exec_builtin_cmd(args[0], args, info)))
-			if (!exec_path_cmd(args[0], args, path_head, info))
-				if (!exec_filename(args[0], args))
-					perror("Error");
+		run_command(args, info);
 		free(args);
 		set_prompt();
 		if (!S_ISCHR(stats.st_mode))
 			_putchar ('\n');
-	}
+	} 
 	free_info(info);
 	free(line);
 	free(info);
 	return (EXIT_SUCCESS);
+}
+
+/**
+ * run_command - executes command with arguments
+ * @args: arguments supplied at command line
+ * @info: pointer to the info_t struct
+ * Return: 0 if succesful; -1 otherwise
+ */
+int run_command(char **args, info_t *info)
+{
+	char *cmd = args[0];
+	path_t *path_head = info->path_head;
+
+	if (!(exec_builtin_cmd(cmd, args, info)))
+	{
+		if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
+		{
+			if (cmd[0] == '.')
+				cmd = cmd + 2;
+			if (!exec_filename(cmd, args))
+			{
+				perror("Error");
+				return (-1);
+			}
+		}
+		else
+		{
+			if (!exec_path_cmd(cmd, args, path_head, info))
+			{
+				perror("Error");
+				return (-1);
+			}
+		}
+	}
+	return (0);
 }
 
 /**
@@ -83,7 +113,6 @@ path_t *list_tokenized_path(char *path)
  * @info: info_t struct whose variables are to be initialized
  * Return: void
  */
-
 void init_shell(info_t *info)
 {
 	info->env_head = NULL;
