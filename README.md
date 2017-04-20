@@ -6,8 +6,7 @@
 ##### Gates of Shell (GOS) is a simple command line shell for UNIX and Linux. GOS includes most basic features that are standard in bash shell.
 
 
-SYNOPSIS
-————
+## SYNOPSIS
 
 GoS is a custom implementation of the UNIX `shell` command-line interface. The objective of this project is to exercise the authors’ understanding of C, gain further familiarity with the operations of the shell, and manage increased program complexity.
 
