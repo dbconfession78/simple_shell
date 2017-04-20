@@ -27,7 +27,6 @@ int main(/*int argc, char *argv[]*/void)
 		set_prompt();
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
-		getchar();
 		info->line = line;
 		add_history(hist_count_p, &info->hist_head, line);
 		if (_strcmp(line, "\n") == 0)
