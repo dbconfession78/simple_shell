@@ -9,7 +9,7 @@
 #include <string.h>
 #include <signal.h>
 #include <sys/wait.h>
-
+#include <fcntl.h>
 /* #define PROMPT "🐚🔥  " */
 #define PROMPT "$ "
 #define TRUE 1

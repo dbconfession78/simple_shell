@@ -6,16 +6,16 @@
  */
 int main(/*int argc, char *argv[]*/void)
 {
-	char *path = NULL, *line = NULL, **args = NULL;
+	char *path = NULL, *line = NULL, **args = NULL, hist_file = ".history";
 	path_t *path_head = NULL;
 	env_t *env_head = NULL;
 	size_t line_size = 0;
 	info_t *info = malloc(sizeof(info_t));
 	int hist_count = 0;
-	int *hist_count_p = &hist_count;
-
+	int *hist_count_p = &hist_count, hist_fd;
 	struct stat stats;
 
+	hist_fd = open(hist_file, O_WRONLY | O_APPEND);
 
 	if (info == NULL)
 		return (-1);
@@ -44,6 +44,7 @@ int main(/*int argc, char *argv[]*/void)
 		if (!S_ISCHR(stats.st_mode))
 			_putchar ('\n');
 	}
+	close(hist_fd);
 	free_info_items(info);
 	free(line);
 	free(info);

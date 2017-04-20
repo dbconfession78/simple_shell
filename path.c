@@ -15,7 +15,7 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 		change_directory(args, info);
 	else if (_strcmp(cmd, "exit") == 0)
 		exit_shell(NULL, args, info);
-	else if (_strcmp(cmd, "env") == 0)
+	else if (_strcmp(cmd, "env") == 0 && !args[1])
 		print_env(&info->env_head, info);
 	else if (_strcmp(cmd, "setenv") == 0)
 		_setenv(args[1], args[2], info->env_head);
