@@ -99,16 +99,13 @@ void print_history(hist_t **head)
 {
 	hist_t *temp_node = *head;
 
-	while(head)
+	while (head)
 	{
 		print_unsigned_int(temp_node->index);
 		_putchar('\t');
 		write(STDOUT_FILENO, temp_node->cmd, _strlen(temp_node->cmd));
-		/* _putchar('\n'); */
 		if (temp_node->next)
-		{
 			temp_node = temp_node->next;
-		}
 		else
 			break;
 	}

@@ -32,6 +32,7 @@ int main(/*int argc, char *argv[]*/void)
 	{
 		info->line = line;
 		add_history(hist_count_p, &info->hist_head, line);
+/*		printf("after func: %d\n", *hist_count_p); */
 		if (_strcmp(line, "\n") == 0)
 		{
 			set_prompt();

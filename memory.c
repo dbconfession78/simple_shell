@@ -59,7 +59,7 @@ int free_string_array(char **array)
 
 /**
  * free_history - frees all elements of the hist_t struct
- * @info: pointer to the info_t struct
+ * @head: pointer to first node in hist_t list
  * Return: void
  */
 void free_history(hist_t *head)
@@ -77,7 +77,7 @@ void free_history(hist_t *head)
 }
 
 /**
- * free_info - frees all elements of the info_t struct
+ * free_info_items - frees all elements of the info_t struct
  * @info: pointer to the info_t struct
  * Return: void
  */

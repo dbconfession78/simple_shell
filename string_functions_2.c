@@ -77,7 +77,7 @@ char *_strncat(char *dest, char *src, size_t n)
  * Return: nothing
  */
 
-void print_unsigned_int(unsigned int num)
+void print_unsigned_int(int num)
 {
 	int digit;
 
