@@ -58,14 +58,12 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 		_strcpy(file_path, temp->path_dir);
 		_strncat(file_path, cmd, _strlen(cmd)); /* create custom _strncat(...)*/
 		_strcat(file_path, "\0");
-		printf("file_path: %s\n", file_path);
 		if (access(file_path, X_OK) == 0)
 		{
 			pid = fork();
 			if (pid == 0)
 			{
 				env_array = env_list_to_array(info->env_head);
-				printf("file_path: %s\n", file_path);
 				execve(file_path, args, env_array);
 			}
 			else if (pid < 0)
@@ -101,7 +99,6 @@ int exec_filename(char *cmd, char **args)
 		pid = fork();
 		if (pid == 0)
 		{
-			 printf("cmd: %s\n", cmd);
 			execve(cmd, args, environ);
 		}
 		else if (pid < 0)
