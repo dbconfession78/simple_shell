@@ -58,12 +58,32 @@ int free_string_array(char **array)
 }
 
 /**
- * free_info - frees all lements of the info_t struct
+ * free_history - frees all elements of the hist_t struct
  * @info: pointer to the info_t struct
  * Return: void
  */
-void free_info(info_t *info)
+void free_history(hist_t *head)
+{
+	hist_t *temp_node;
+	hist_t *next_node;
+	temp_node = head;
+
+	for(; temp_node; temp_node = next_node)
+	{
+		next_node = temp_node->next;
+		free(temp_node->cmd);
+		free(temp_node);
+	}
+}
+
+/**
+ * free_info - frees all elements of the info_t struct
+ * @info: pointer to the info_t struct
+ * Return: void
+ */
+void free_info_items(info_t *info)
 {
 	free_env_list(info->env_head);
 	free_path_list(info->path_head);
+	free_history(info->hist_head);
 }

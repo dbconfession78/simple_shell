@@ -11,7 +11,11 @@ int main(/*int argc, char *argv[]*/void)
 	env_t *env_head = NULL;
 	size_t line_size = 0;
 	info_t *info = malloc(sizeof(info_t));
+	int hist_count = 0;
+	int *hist_count_p = &hist_count;
+
 	struct stat stats;
+
 
 	if (info == NULL)
 		return (-1);
@@ -27,6 +31,7 @@ int main(/*int argc, char *argv[]*/void)
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
 		info->line = line;
+		add_history(hist_count_p, &info->hist_head, line);
 		if (_strcmp(line, "\n") == 0)
 		{
 			set_prompt();
@@ -39,7 +44,7 @@ int main(/*int argc, char *argv[]*/void)
 		if (!S_ISCHR(stats.st_mode))
 			_putchar ('\n');
 	}
-	free_info(info);
+	free_info_items(info);
 	free(line);
 	free(info);
 	return (EXIT_SUCCESS);
@@ -118,4 +123,5 @@ void init_shell(info_t *info)
 	info->env_head = NULL;
 	info->path_head = NULL;
 	info->line = NULL;
+	info->hist_head = NULL;
 }

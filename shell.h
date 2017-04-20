@@ -17,6 +17,20 @@
 
 extern char **environ;
 
+
+/**
+ * struct hist_s - history of all commands passed to shell
+ * @index: chronological index of command
+ * @cmd: the historical command passed
+ */
+typedef struct hist_s
+{
+	int index;
+	char *cmd;
+	struct hist_s *next;
+} hist_t;
+
+
 /**
  * struct path_s - struct for path directory
  * @path_dir: path directory
@@ -29,7 +43,7 @@ typedef struct path_s
 } path_t;
 
 /**
- * struct env_s - struct for env variable
+ * Struct env_s - struct for env variable
  * @name: env variable name
  * @value: env variable value
  * @next: pointer to next node in list
@@ -45,6 +59,7 @@ typedef struct env_s
  * struct info_s - struct for shell variables
  * @env_head: pointer to head of env_t list
  * @path_head: pointer to the head of path_t list
+ * @hist_head: pointer to the head of hist_t list
  * @line: pointer to arguments received in getline
  */
 
@@ -53,6 +68,7 @@ typedef struct info_s
 	env_t *env_head;
 	path_t *path_head;
 	char *line;
+	hist_t *hist_head;
 } info_t;
 
 void set_prompt(void);
@@ -83,9 +99,13 @@ void exit_shell(char *exit_status, char **args, info_t *info);
 char **env_list_to_array(env_t *env_head);
 int free_string_array(char **array);
 int _atoi(char *s);
-void free_info(info_t *info);
+void free_info_items(info_t *info);
 void free_env_list(env_t *head);
 char *_strncat(char *dest, char *src, size_t n);
 int exec_filename(char *cmd, char **args);
 int run_command(char **args, info_t *info);
+hist_t *add_history(int *count, hist_t **head, char *cmd);
+void print_history(hist_t **head);
+void print_unsigned_int(unsigned int num);
+void free_history(hist_t *head);
 #endif

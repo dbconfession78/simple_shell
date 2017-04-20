@@ -22,7 +22,7 @@ int exec_builtin_cmd(char *cmd, char **args, info_t *info)
 	else if (_strcmp(cmd, "unsetenv") == 0)
 		; /* TODO */
 	else if (_strcmp(cmd, "history") == 0)
-		; /* TODO */
+		print_history(&info->hist_head);
 	else if (_strcmp(cmd, "help") == 0)
 		; /* TODO */
 	else if (_strcmp(cmd, "alias") == 0)

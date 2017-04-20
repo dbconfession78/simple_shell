@@ -64,6 +64,7 @@ void exit_shell(char *exit_status, char **args, info_t *info)
 	free(info->line);
 	free_path_list(info->path_head);
 	free_env_list(info->env_head);
+	free_history(info->hist_head);
 	free(info);
 	exit(i);
 }
@@ -87,4 +88,28 @@ int print_env(env_t **head, __attribute__((__unused__))info_t *info)
 		_putchar('\n');
 	}
 	return (0);
+}
+
+/**
+ * print_history - prints command history
+ * @head: pointer to first node in hist_t list
+ * Return: void
+ */
+void print_history(hist_t **head)
+{
+	hist_t *temp_node = *head;
+
+	while(head)
+	{
+		print_unsigned_int(temp_node->index);
+		_putchar('\t');
+		write(STDOUT_FILENO, temp_node->cmd, _strlen(temp_node->cmd));
+		/* _putchar('\n'); */
+		if (temp_node->next)
+		{
+			temp_node = temp_node->next;
+		}
+		else
+			break;
+	}
 }

@@ -70,3 +70,23 @@ char *_strncat(char *dest, char *src, size_t n)
 	return (dest);
 }
 
+/**
+ * print_unsigned_int - writes integer to
+ * standard output
+ * @num: unsigned int
+ * Return: nothing
+ */
+
+void print_unsigned_int(unsigned int num)
+{
+	int digit;
+
+	if (num / 10 != 0)
+	{
+		print_unsigned_int(num / 10);
+	}
+
+	digit = ((num % 10) + '0');
+
+	(write(1, &digit, 1));
+}
