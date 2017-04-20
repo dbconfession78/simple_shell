@@ -113,6 +113,7 @@ path_t *list_tokenized_path(char *path)
 	{
 		printf("temp: %s\n", temp->path_dir);
 		temp = temp->next;
+		getchar();
 	}
 	return (head);
 }
