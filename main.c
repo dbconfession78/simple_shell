@@ -60,6 +60,7 @@ int run_command(char **args, info_t *info)
 
 	if (!(exec_builtin_cmd(cmd, args, info)))
 	{
+		printf("cmd: %s\n", cmd);
 		if ((cmd[0] == '.' && cmd[1] == '/') || cmd[0] == '/')
 		{
 			if (cmd[0] == '.')
