@@ -56,7 +56,7 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 		file_path = malloc(sizeof(char) * (_strlen(temp->path_dir) +
 										   _strlen(cmd) + 1));
 		_strcpy(file_path, temp->path_dir);
-		_strncat(file_path, cmd, _strlen(cmd)); /* create custom _strncat(...)*/
+		_strncat(file_path, cmd, _strlen(cmd));
 		_strcat(file_path, "\0");
 		if (access(file_path, X_OK) == 0)
 		{
