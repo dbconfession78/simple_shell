@@ -108,11 +108,6 @@ path_t *list_tokenized_path(char *path)
 		i++;
 	}
 	free(path_copy);
-	path_t *temp = head;
-	while (temp)
-	{
-		temp = temp->next;
-	}
 	return (head);
 }
 
