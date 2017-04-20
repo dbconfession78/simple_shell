@@ -51,7 +51,7 @@ int exec_path_cmd(char *cmd, char **args, path_t *path_head, info_t *info)
 	char **env_array;
 
 	temp = path_head;
-	while (temp->next)
+	while (temp != NULL)
 	{
 		file_path = malloc(sizeof(char) * (_strlen(temp->path_dir) +
 										   _strlen(cmd) + 1));
