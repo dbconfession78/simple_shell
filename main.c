@@ -27,6 +27,7 @@ int main(/*int argc, char *argv[]*/void)
 		set_prompt();
 	while (getline(&line, &line_size, stdin) != EOF)
 	{
+		getchar();
 		info->line = line;
 		add_history(hist_count_p, &info->hist_head, line);
 		if (_strcmp(line, "\n") == 0)
@@ -107,6 +108,12 @@ path_t *list_tokenized_path(char *path)
 		i++;
 	}
 	free(path_copy);
+	path_t *temp = head;
+	while (temp)
+	{
+		printf("temp: %s\n", temp->path_dir);
+		temp = temp->next;
+	}
 	return (head);
 }
 
