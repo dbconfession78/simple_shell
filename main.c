@@ -111,9 +111,8 @@ path_t *list_tokenized_path(char *path)
 	path_t *temp = head;
 	while (temp)
 	{
-		/* printf("temp: %s\n", temp->path_dir); */
+		 printf("temp: %s\n", temp->path_dir);
 		temp = temp->next;
-		getchar();
 	}
 	return (head);
 }
