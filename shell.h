@@ -22,6 +22,7 @@ extern char **environ;
  * struct hist_s - history of all commands passed to shell
  * @index: chronological index of command
  * @cmd: the historical command passed
+ * @next: pointer to the next node in hist_t list
  */
 typedef struct hist_s
 {
@@ -43,7 +44,7 @@ typedef struct path_s
 } path_t;
 
 /**
- * Struct env_s - struct for env variable
+ * struct env_s - struct for env variable
  * @name: env variable name
  * @value: env variable value
  * @next: pointer to next node in list
@@ -106,6 +107,6 @@ int exec_filename(char *cmd, char **args);
 int run_command(char **args, info_t *info);
 hist_t *add_history(int *count, hist_t **head, char *cmd);
 void print_history(hist_t **head);
-void print_unsigned_int(unsigned int num);
+void print_unsigned_int(int num);
 void free_history(hist_t *head);
 #endif
