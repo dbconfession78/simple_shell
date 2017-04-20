@@ -66,9 +66,9 @@ void free_history(hist_t *head)
 {
 	hist_t *temp_node;
 	hist_t *next_node;
-	temp_node = head;
 
-	for(; temp_node; temp_node = next_node)
+	temp_node = head;
+	for (; temp_node; temp_node = next_node)
 	{
 		next_node = temp_node->next;
 		free(temp_node->cmd);
