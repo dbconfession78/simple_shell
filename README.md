@@ -1,10 +1,8 @@
 ![printf](http://i.imgur.com/FBKO2yt.png)
 
-# Gates of Shell - Custom Shell project
-
 ![printf](http://i.imgur.com/CsfTB2F.jpg)
 
-##### Gates of Shell (GoS) is a simple command line shell for UNIX and Linux. GoS includes most basic features that are standard in bash shell.
+#### Gates of Shell (GoS) is a simple command line shell for UNIX and Linux. GoS includes most basic features that are standard in bash shell.
 
 
 ## SYNOPSIS
