@@ -37,7 +37,6 @@ int main(void)
 		args = tokenize_stdin(line);
 		run_command(args, info);
 		free(args);
-
 		if (S_ISCHR(stats.st_mode))
 			set_prompt();
 	}
@@ -74,7 +73,7 @@ int run_command(char **args, info_t *info)
 		{
 			if (!exec_path_cmd(cmd, args, path_head, info))
 			{
-				if(!exec_filename(cmd, args))
+				if (!exec_filename(cmd, args))
 				{
 					perror("Error");
 					return (-1);
