@@ -26,6 +26,10 @@ env_t *init_env_list(char **environ, env_t **head)
 		{
 			new_node->value = _strdup(token);
 		}
+		else
+		{
+			new_node->value = NULL;
+		}
 		free(env_var);
 		if (*head == NULL)
 		{
@@ -62,6 +66,7 @@ env_t *_setenv(char *name, char *value, env_t *head)
 	temp = head;
 	if (!name || !value)
 	{
+		printf("here!"); getchar();
 		perror("Error");
 		return (NULL);
 	}

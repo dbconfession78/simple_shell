@@ -70,6 +70,7 @@ typedef struct info_s
 	path_t *path_head;
 	char *line;
 	hist_t *hist_head;
+	int is_interactive;
 } info_t;
 
 void set_prompt(void);
@@ -109,4 +110,5 @@ hist_t *add_history(int *count, hist_t **head, char *cmd);
 void print_history(hist_t **head);
 void print_unsigned_int(int num);
 void free_history(hist_t *head);
+int check_interactive(char **args);
 #endif

@@ -35,6 +35,7 @@ int change_directory(char **args, info_t *info)
 	}
 	if (chdir(token) == -1)
 	{
+		printf("HERE\n"); getchar();
 		perror("Error");
 		free(old_cwd);
 		return (-1);

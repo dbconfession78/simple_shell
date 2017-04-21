@@ -103,6 +103,8 @@ int exec_filename(char *cmd, char **args)
 		}
 		else if (pid < 0)
 		{
+			printf("GHERE!!\n");
+				getchar();
 			perror("Error");
 			exit(1000); /*TODO: handle exit values */
 		}

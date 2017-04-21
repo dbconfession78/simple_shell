@@ -4,7 +4,7 @@
  * main - entry point for shell
  * Return: always return 0
  */
-int main(/*int argc, char *argv[]*/void)
+int main(void)
 {
 	char *path = NULL, *line = NULL, **args = NULL;
 	path_t *path_head = NULL;
@@ -37,9 +37,9 @@ int main(/*int argc, char *argv[]*/void)
 		args = tokenize_stdin(line);
 		run_command(args, info);
 		free(args);
-		set_prompt();
-		if (!S_ISCHR(stats.st_mode))
-			_putchar ('\n');
+
+		if (S_ISCHR(stats.st_mode))
+			set_prompt();
 	}
 	free_info_items(info);
 	free(line);
@@ -74,8 +74,11 @@ int run_command(char **args, info_t *info)
 		{
 			if (!exec_path_cmd(cmd, args, path_head, info))
 			{
-				perror("Error");
-				return (-1);
+				if(!exec_filename(cmd, args))
+				{
+					perror("Error");
+					return (-1);
+				}
 			}
 		}
 	}
@@ -93,6 +96,9 @@ path_t *list_tokenized_path(char *path)
 	char *path_copy;
 	path_t *head = NULL;
 	int i = 0;
+
+	if (path == NULL)
+		return (NULL);
 
 	path_copy = malloc(sizeof(char) * _strlen(path) + 1);
 	if (!path_copy)
@@ -121,4 +127,5 @@ void init_shell(info_t *info)
 	info->path_head = NULL;
 	info->line = NULL;
 	info->hist_head = NULL;
+	info->is_interactive = TRUE;
 }
