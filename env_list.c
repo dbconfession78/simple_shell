@@ -23,13 +23,9 @@ env_t *init_env_list(char **environ, env_t **head)
 			new_node->name = _strdup(token);
 		token = strtok(NULL, "\n");
 		if (token)
-		{
 			new_node->value = _strdup(token);
-		}
 		else
-		{
 			new_node->value = NULL;
-		}
 		free(env_var);
 		if (*head == NULL)
 		{
@@ -47,7 +43,6 @@ env_t *init_env_list(char **environ, env_t **head)
 		}
 		i++;
 	}
-
 	return (*head);
 }
 
